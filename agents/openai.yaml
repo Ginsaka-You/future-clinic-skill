@@ -1,0 +1,6 @@
+interface:
+  display_name: "Future Clinic"
+  short_description: "先讲清发展阶段，再在各阶段下比较具体路径及其反馈与后续，图为可选"
+  default_prompt: "Use $future-clinic to build a shared deep diagnostic base, explore decision-relevant candidates, and present stages or key states with concrete options directly under each stage, their feedback and next choices, then locate the recommendation in that framework; diagrams are optional."
+policy:
+  allow_implicit_invocation: false

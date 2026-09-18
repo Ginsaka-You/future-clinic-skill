@@ -1,0 +1,7 @@
+Font: Noto Sans SC variable TrueType
+File: NotoSansSC[wght].ttf
+Source repository: https://github.com/google/fonts
+Source revision: ade3d1533e06b2b1462ffcde8e08b129627ca360
+Source path: ofl/notosanssc/NotoSansSC[wght].ttf
+SHA-256: a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da
+License: SIL Open Font License 1.1, copied in OFL-NotoSansSC.txt
