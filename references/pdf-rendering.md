@@ -1,39 +1,17 @@
 # 独立 PDF 渲染
 
-所有渲染代码、样式与中文字体均在本 Skill 内；不需要安装其他 Skill。仍需 Python 和下列开源运行库。
+渲染脚本、样式和中文字体都随本 Skill 提供，不依赖其他 Skill。仅渲染已审阅的 Markdown；原始 HTML、图片及链接可加载本地或网络资源，这不是不可信文档的安全沙箱。
 
-## 环境
+先检查宿主提供的 Python 或 `FUTURE_CLINIC_PDF_PYTHON` 是否可导入 `markdown`、`weasyprint`、`fontTools`。已有依赖先修复路径或动态库发现；确实缺失才按宿主授权用兼容 Python（3.10+）和本 Skill 的 `requirements.txt` 建立隔离环境。Pango 等排版库问题参照 [WeasyPrint 安装说明](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation)，不改系统安全设置，不用 `--break-system-packages`，不重启桌面应用。
 
-先检查宿主提供的 Python 或 `FUTURE_CLINIC_PDF_PYTHON` 指向的解释器能否导入 `markdown`、`weasyprint`、`fontTools`。缺少依赖时，依当前授权在本仓库建立隔离环境，不改系统 Python：
-
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-```
-
-Python 需要 3.10 或更高版本。WeasyPrint 还需要系统字体与排版库；如果导入失败，按 [WeasyPrint 安装说明](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation) 检查对应平台的 Pango 等依赖和动态库发现。已有运行库不要重复安装。不要使用 `--break-system-packages`，也不要通过重启桌面应用解决依赖问题。
-
-## 调用
-
-从 Skill 根目录运行（在其他目录运行时改用该脚本的实际绝对路径）：
+调用已确认的 Python，并把示例路径换成实际文件：
 
 ```sh
-.venv/bin/python scripts/md_to_pdf.py \
-  examples/阶段与路径示例.md output/阶段与路径示例.pdf \
-  --author "游诗辰 · Future Clinic"
+python /实际路径/future-clinic/scripts/md_to_pdf.py /实际路径/主题.md /实际路径/主题.pdf --author "游诗辰 · Future Clinic"
 ```
 
-默认以 Markdown 第一个一级标题作为封面标题，`--title` 可以显式指定同一标题。默认不保存 HTML；需要排查版式时加 `--keep-html`。输出文件已存在时拒绝覆盖，请按报告命名规则换用新的同主名 Markdown/PDF 文件。
+默认以第一个一级标题作封面标题。需要排版诊断时加 `--keep-html`。已有输出拒绝覆盖；用新的同主名 Markdown/PDF 保留历史。
 
-字体默认读取仓库内 `assets/NotoSansSC[wght].ttf`。如需替换，可设置 `FUTURE_CLINIC_PDF_CJK_FONT` 为有简体中文字形的 TrueType `.ttf` 文件；脚本会检查格式和代表性中文字形，不代表它覆盖任意语言或符号。字体来源和许可见 `assets/NotoSansSC-SOURCE.txt` 与 `assets/OFL-NotoSansSC.txt`。
+默认字体为 `assets/NotoSansSC[wght].ttf`，来源和许可分别为 `assets/NotoSansSC-SOURCE.txt`、`assets/OFL-NotoSansSC.txt`。必要时用 `FUTURE_CLINIC_PDF_CJK_FONT` 指向有中文字形的 TrueType 字体；程序检查代表性字形，不保证任意符号或语言都覆盖。
 
-只渲染已审阅的 Markdown。它可包含原始 HTML、图片和相对文件路径；渲染器不是不可信文档的安全沙箱，可能加载文档引用的本地或网络资源。不要把它作为无隔离的公开文件转换服务。
-
-## 验证
-
-```sh
-node --test tests/*.test.mjs
-.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
-```
-
-文字合同测试不证明研究质量。每份最终 PDF 仍应检查文本、链接、标题和作者，并逐页检查中文、裁切、表格与分页；具体研究交付要求见 `future-decision-method.md` 第 7 节。示例只用于排版和渲染检查，不是实际会诊报告。
+生成后核对标题、作者、正文、表格和来源链接，并逐页查看；检查原则见 [future-decision-method.md](future-decision-method.md) 第8节。文本或结构测试不证明报告有主线，也不替代视觉检查。

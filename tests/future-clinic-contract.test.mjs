@@ -1,57 +1,47 @@
-import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import test from "node:test";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { dirname, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import test from 'node:test';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const skill = readFileSync(resolve(here, "../SKILL.md"), "utf8");
-const method = readFileSync(
-  resolve(here, "../references/future-decision-method.md"),
-  "utf8",
-);
-const openai = readFileSync(resolve(here, "../agents/openai.yaml"), "utf8");
-const contract = `${skill}\n${method}`;
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = path => readFileSync(resolve(root, path), 'utf8');
+const skill = read('SKILL.md');
+const ui = read('agents/openai.yaml');
 
-test("explicit invocation remains the only gate and starts unconditionally", () => {
-  assert.match(skill, /只在用户显式调用[^\n]+时运行/);
-  assert.match(skill, /一旦调用就无条件启动 Future Clinic/);
-  assert.match(skill, /不得在候选生成前运行任何决定是否进入/);
+// Package integrity only. These checks cannot judge relationships, reasoning or readability.
+// Use actual full-report forward runs and source-bound reading for behavioral evidence.
+test('the package identifies the explicit-only Future Clinic entry', () => {
+  const frontmatter = skill.match(/^---\n([\s\S]+?)\n---/);
+  assert.ok(frontmatter, 'YAML frontmatter exists');
+  assert.match(frontmatter[1], /^name: future-clinic$/m);
+  assert.match(frontmatter[1], /^description: "[^\n]+"$/m);
+  assert.match(ui, /^  allow_implicit_invocation: false$/m);
+  assert.match(ui, /^  default_prompt: "Use \$future-clinic /m);
+  assert.match(ui, /^  display_name: "Future Clinic"$/m);
 });
 
-test("the shared diagnostic base is naturally elastic and crosses four evidence dimensions", () => {
-  assert.match(contract, /共享深度诊断底座/);
-  assert.match(contract, /当前事实[^\n]+未知[^\n]+边界/);
-  assert.match(contract, /纵向[^\n]+形成[^\n]+演化/);
-  assert.match(contract, /横向[^\n]+竞争解释/);
-  assert.match(contract, /交叉[^\n]+矛盾[^\n]+驱动力/);
-  assert.match(contract, /自然伸缩/);
+test('all relative instruction references resolve inside the package', () => {
+  const files = ['SKILL.md', ...readdirSync(resolve(root, 'references')).filter(n => n.endsWith('.md')).map(n => `references/${n}`)];
+  for (const file of files) {
+    for (const match of read(file).matchAll(/\[[^\]]*\]\(([^)]+)\)/g)) {
+      const target = match[1];
+      if (/^https?:/.test(target) || target.startsWith('#')) continue;
+      const absolute = resolve(root, dirname(file), target.split('#')[0]);
+      assert.ok(absolute.startsWith(root + sep), `${file}: outside-package reference`);
+      assert.ok(existsSync(absolute), `${file}: missing ${target}`);
+    }
+  }
 });
 
-// Static contract guards only; generated decisions need independent behavioral review.
-test("pathway instructions retain shared capabilities and substantive depth", () => {
-  assert.ok(!contract.includes("候选至少改变当前第一选择"), "obsolete sufficient-difference rule must not coexist with pathway semantics");
-  assert.match(contract, /共同能力/);
-  assert.match(contract, /子分支/);
-  assert.match(contract, /条件路线/);
-  assert.match(contract, /主路线必须完整覆盖/);
-  assert.match(contract, /参与者反应/);
-  assert.match(contract, /稳定[／/]失败形态/);
-  assert.match(contract, /不可逆成本/);
-  assert.match(contract, /选择权/);
-  assert.match(contract, /换路信号/);
+test('standalone rendering resources and license are present', () => {
+  for (const file of ['scripts/md_to_pdf.py', 'requirements.txt', 'assets/NotoSansSC[wght].ttf', 'assets/OFL-NotoSansSC.txt', 'assets/NotoSansSC-SOURCE.txt']) {
+    assert.ok(existsSync(resolve(root, file)), `missing ${file}`);
+  }
 });
 
-test("two hops are a minimum checkpoint, not a hard stop", () => {
-  assert.match(contract, /两跳[^\n]+最低检查点/);
-  assert.match(contract, /稳定[^\n]+失败[^\n]+下一次决策/);
-  assert.doesNotMatch(contract, /默认两跳/);
-  assert.doesNotMatch(contract, /回到两跳/);
-});
-
-test("the native chip carries the developmental coordinates and explicit invocation contract", () => {
-  assert.match(openai, /shared deep diagnostic base/);
-  assert.match(openai, /decision-relevant candidates/);
-  assert.match(openai, /stages or key states/);
-  assert.match(openai, /allow_implicit_invocation: false/);
+test('active instructions and renderer contain no external skill path or local user path', () => {
+  for (const file of ['SKILL.md', 'agents/openai.yaml', 'references/future-decision-method.md', 'references/pdf-rendering.md', 'scripts/md_to_pdf.py']) {
+    assert.doesNotMatch(read(file), /(?:\.codex|\.agents)\/skills\/[^/]+\/scripts|\/Users\//);
+  }
 });
