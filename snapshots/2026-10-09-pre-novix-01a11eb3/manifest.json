@@ -1,0 +1,94 @@
+{
+  "snapshot": "2026-10-09-pre-novix-future-clinic",
+  "snapshot_time": "2026-10-09T11:33:28.065591+08:00",
+  "Comments": "Novix 学习前存档",
+  "file_count": 12,
+  "package_root": "package",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 13149,
+      "sha256": "e8349da9c71464091dc5eca77ad9c38164ce20193b9b3ae32906b468a2c8939c",
+      "git_blob_sha": "568e218a4a2fd3ad958838f9866284b866495c46",
+      "mode": "0o644"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 535,
+      "sha256": "a1b5bfb449e8528e39f5090bcfc91cf06328bb1d8f8ea10a3345d25bdab8b99b",
+      "git_blob_sha": "a39511968037703e3dad3fcafb668a41bed84962",
+      "mode": "0o644"
+    },
+    {
+      "path": "assets/NotoSansSC-SOURCE.txt",
+      "bytes": 361,
+      "sha256": "02b68e2e82ed940ffdc407bd9fc85506b12a50b53517ece5894ac44b4e6bb8bb",
+      "git_blob_sha": "c935ef1859028e1fbd352d44b49b396b4a96c64d",
+      "mode": "0o644"
+    },
+    {
+      "path": "assets/NotoSansSC[wght].ttf",
+      "bytes": 17772300,
+      "sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+      "git_blob_sha": "fb0637bafbcd804fe32152370a1225990745b4bc",
+      "mode": "0o644"
+    },
+    {
+      "path": "assets/OFL-NotoSansSC.txt",
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "git_blob_sha": "1c9f43281b8f216c5461fe9ac729afbade7724e4",
+      "mode": "0o644"
+    },
+    {
+      "path": "references/future-decision-method.md",
+      "bytes": 20853,
+      "sha256": "3cd1b7f0f672abf48775b5e9ca0ad1d3ccec74e31cb7ac458f8a6f9a50d81054",
+      "git_blob_sha": "4860dd6aab1bc109e9be7ade862890201edb15af",
+      "mode": "0o644"
+    },
+    {
+      "path": "references/pdf-rendering.md",
+      "bytes": 1678,
+      "sha256": "7a793a6dfbef67e939460ba09dba4c397b38ab7fd3dcb3a9cb8675c89871d633",
+      "git_blob_sha": "a6a96753869bc664e178d8c943b3e66f755e60c6",
+      "mode": "0o644"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 105,
+      "sha256": "fbc0f5d36f53d73fba6454b059f83bd65886b1cffca0d388919757d42d3e938f",
+      "git_blob_sha": "a4349a907efe763d21309bce227c988e9db3815f",
+      "mode": "0o644"
+    },
+    {
+      "path": "scripts/md_to_pdf.py",
+      "bytes": 9856,
+      "sha256": "8826c1d5258ee30720d2337fbd9d1c7c0549ebcc73fecb29176f244df9f55df9",
+      "git_blob_sha": "7f110002044851735646655b9acc6a08b9d6ba28",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/behavioral-acceptance.md",
+      "bytes": 2963,
+      "sha256": "297f2eb9869fd4d75e2346bd31875272da11368c446fef7e0818e638844ca125",
+      "git_blob_sha": "82ab5c09d11d592a29bb09f2969688143e25e4c9",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/future-clinic-contract.test.mjs",
+      "bytes": 2461,
+      "sha256": "32d28d4f4a5c2eace3a92408209262bb9b344baebd79b923a900971157219c2f",
+      "git_blob_sha": "ae0587fb64830d0faffaae1209e3776bf550a099",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/test_renderer.py",
+      "bytes": 1834,
+      "sha256": "275014e591f8b2aa2d8f3277c4df10757e3e5a01362f09197c378916e3831a63",
+      "git_blob_sha": "897a153a30164b3ea9b21c1461f9bce9271ef7bd",
+      "mode": "0o644"
+    }
+  ],
+  "restore": "核对清单 SHA-256 后，从同目录 package/ 取出全部12文件。恢复前另外保存当前安装包；仅在明确授权恢复时安装，不删除现有文件或历史。"
+}

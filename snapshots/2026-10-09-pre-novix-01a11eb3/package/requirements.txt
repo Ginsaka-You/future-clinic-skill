@@ -1,0 +1,4 @@
+# Tested renderer dependency versions. Python 3.10+.
+Markdown==3.10.3
+WeasyPrint==69.0
+fonttools==4.63.0
