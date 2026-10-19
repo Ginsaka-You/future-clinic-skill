@@ -40,8 +40,8 @@ test('standalone rendering resources and license are present', () => {
   }
 });
 
-test('active instructions and renderer contain no external skill path or local user path', () => {
+test('active instructions and renderer contain no legacy product dependency or local user path', () => {
   for (const file of ['SKILL.md', 'agents/openai.yaml', 'references/future-decision-method.md', 'references/pdf-rendering.md', 'scripts/md_to_pdf.py']) {
-    assert.doesNotMatch(read(file), /(?:\.codex|\.agents)\/skills\/[^/]+\/scripts|\/Users\//);
+    assert.doesNotMatch(read(file), /HV Analysis|hv-analysis|Solution Clinic|solution-clinic|\/Users\//);
   }
 });
